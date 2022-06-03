@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Biblioteca {
@@ -19,20 +19,23 @@ public class Biblioteca {
 	private Tree indice;
 
 	public Biblioteca() {
-		libros = new ArrayList<>();
+		libros = new LinkedList<>();
 		indice = new Tree();
 	}
 
+	public int cantidadLibros() {
+		return libros.size();
+	}
+	
 	public List<Libro> obtenerLibros(String genero) {
 		Iterator<Libro> i = indice.obtenerLibros(genero);
-		ArrayList<Libro> res = new ArrayList<>();
+		LinkedList<Libro> res = new LinkedList<>();
 		while (i.hasNext()) {
 			Libro l = i.next();
 			res.add(l);
 		}
 		
 		this.saveToCSV(res, "./src/csv/resultados/" + genero + ".csv", genero);
-//		this.saveToCSV(res, "./src/resultados/" + genero + ".csv", genero);
 		return res;
 	}
 
